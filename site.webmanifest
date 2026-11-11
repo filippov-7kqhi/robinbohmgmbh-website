@@ -1,0 +1,17 @@
+{
+  "name": "Robin Böhm GmbH",
+  "short_name": "Robin Böhm",
+  "description": "Die Robin Böhm GmbH mit Sitz in Berlin verwaltet Gesellschaftsvermögen und Unternehmensbeteiligungen – vorrangig im Bildungsbereich.",
+  "lang": "de",
+  "start_url": "/robinbohmgmbh-website/",
+  "display": "standalone",
+  "background_color": "#08142A",
+  "theme_color": "#08142A",
+  "icons": [
+    {
+      "src": "/robinbohmgmbh-website/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

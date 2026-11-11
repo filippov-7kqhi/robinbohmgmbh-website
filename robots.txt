@@ -1,0 +1,3 @@
+# Indexierung deaktiviert (siteConfig.seo.allowIndexing = false)
+User-agent: *
+Disallow: /
