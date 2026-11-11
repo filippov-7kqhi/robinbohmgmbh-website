@@ -79,8 +79,8 @@ export default function PrivacyPage() {
           <p>
             Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO. Unser berechtigtes Interesse liegt in einer zuverlässigen
             und sicheren Bereitstellung der Website. Dabei kann eine Übermittlung personenbezogener Daten in die USA
-            erfolgen. Grundlage der Übermittlung:{' '}
-            {privacy.transferBasis || <MissingValue label="Rechtsgrundlage der Übermittlung in die USA" />}
+            erfolgen. Grundlage der Übermittlung ist{' '}
+            {privacy.transferBasis || <MissingValue label="Rechtsgrundlage der Übermittlung in die USA" />}.
           </p>
           <p>
             Weitere Informationen enthält die{' '}

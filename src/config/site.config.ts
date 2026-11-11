@@ -170,7 +170,10 @@ export const siteConfig: SiteConfig = {
       service: 'GitHub Pages',
       privacyPolicyUrl: 'https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement',
     },
-    transferBasis: '',
+    // Quelle: GitHub General Privacy Statement (gültig ab 27.04.2026), Abschnitt „Data Privacy Framework (DPF)“:
+    // „GitHub has certified to the U.S. Department of Commerce that it adheres to the EU-U.S. Data Privacy Framework Principles“
+    transferBasis:
+      'der Angemessenheitsbeschluss der Europäischen Kommission zum EU-U.S. Data Privacy Framework (Art. 45 Abs. 1 DSGVO), unter dem GitHub nach eigenen Angaben zertifiziert ist',
     dataProtectionOfficer: null,
     supervisoryAuthority: {
       name: 'Berliner Beauftragte für Datenschutz und Informationsfreiheit',

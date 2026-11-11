@@ -34,6 +34,9 @@ function assertReleaseReady() {
   if (!siteConfig.privacy.transferBasis.trim()) {
     missing.push('privacy.transferBasis – Rechtsgrundlage der Datenübermittlung an GitHub (USA) für die Datenschutzerklärung');
   }
+  if (siteConfig.contactForm.endpoint.trim() && !siteConfig.contactForm.providerName.trim()) {
+    missing.push('contactForm.providerName – Name des Formulardienstes für die Datenschutzerklärung');
+  }
   if (!siteConfig.release.contentApproved) {
     missing.push('release.contentApproved – Freigabe der Website-Inhalte durch die Gesellschaft');
   }
