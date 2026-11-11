@@ -113,7 +113,7 @@ export const siteConfig: SiteConfig = {
   sample: {
     enabled: true,
     notice:
-      'Fiktive Beispielmarke – sämtliche Namen, Inhalte und Angaben dieser Website sind Musterinhalte.',
+      'Entwicklungsvorschau einer fiktiven Beispielmarke – sämtliche Namen, Inhalte und Angaben sind Musterinhalte und beziehen sich auf kein reales Unternehmen.',
   },
 
   siteUrl: 'https://filippov-7kqhi.github.io/aurenfeld-holding',

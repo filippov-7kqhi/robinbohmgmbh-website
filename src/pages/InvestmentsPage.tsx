@@ -1,8 +1,5 @@
-import { Info } from 'lucide-react';
 import { pages } from '../config/pages';
-import { siteConfig } from '../config/site.config';
 import { investmentCriteria, investmentProcess, investmentTypes } from '../content/investments';
-import { PortfolioGrid } from '../components/investments/PortfolioGrid';
 import { Seo } from '../components/seo/Seo';
 import { Container } from '../components/ui/Container';
 import { CtaBand } from '../components/ui/CtaBand';
@@ -133,33 +130,6 @@ export default function InvestmentsPage() {
           </ol>
         </Container>
       </section>
-
-      {/* Beispielportfolio */}
-      <Section tone="paper" id="portfolio" labelledBy="portfolio-title">
-        <SectionHeading
-          eyebrow="Beispielportfolio"
-          id="portfolio-title"
-          title={
-            <>
-              Mögliche <span className="italic text-gold-700">Beteiligungsprofile.</span>
-            </>
-          }
-          lead="Die folgenden Profile veranschaulichen, welche Art von Unternehmen zu unserer Strategie passen würde."
-        />
-        <Reveal delay={200}>
-          <div role="note" className="mt-10 flex max-w-3xl gap-4 border border-gold-400/50 bg-gold-50 p-6 text-sm leading-relaxed text-gold-900">
-            <Info aria-hidden="true" className="mt-0.5 h-5 w-5 shrink-0 text-gold-600" strokeWidth={1.75} />
-            <p>
-              <strong className="font-semibold">Hinweis:</strong> Alle Einträge sind frei erfundene Beispiele mit
-              Projektnamen als Platzhalter. Es handelt sich nicht um tatsächliche Beteiligungen der{' '}
-              {siteConfig.brand.fullName}, um real existierende Unternehmen oder um Ergebnisse jeglicher Art.
-            </p>
-          </div>
-        </Reveal>
-        <div className="mt-12">
-          <PortfolioGrid />
-        </div>
-      </Section>
 
       <CtaBand
         eyebrow="Für Unternehmerinnen und Unternehmer"

@@ -23,7 +23,7 @@ npm run preview    # Produktions-Build lokal ansehen
 | Seitentitel & Meta-Beschreibungen | `src/config/pages.ts` |
 | Geschäftsbereiche | `src/content/businessAreas.ts` |
 | Werte, Grundsätze, Leitung | `src/content/company.ts` |
-| Kriterien, Ablauf, Beispielportfolio | `src/content/investments.ts` |
+| Beteiligungsformen, Kriterien, Ablauf | `src/content/investments.ts` |
 | Farben & Schriften | `tailwind.config.js` |
 | Bilder | `public/images/` |
 
