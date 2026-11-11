@@ -1,6 +1,6 @@
 import { useEffect, useRef, type CSSProperties } from 'react';
 import { NavLink } from 'react-router-dom';
-import { ArrowUpRight, Mail, Phone } from 'lucide-react';
+import { ArrowUpRight, Mail, MapPin, Phone } from 'lucide-react';
 import { legalNavigation, mainNavigation } from '../../config/navigation';
 import { siteConfig } from '../../config/site.config';
 import { cn } from '../../lib/cn';
@@ -99,14 +99,24 @@ export function MobileMenu({ open, onClose }: MobileMenuProps) {
         </nav>
 
         <div className="relative mt-auto space-y-4 pt-12 text-sm text-white/70">
-          <a href={`mailto:${siteConfig.contact.email}`} className="flex items-center gap-3 hover:text-gold-300">
-            <Mail aria-hidden="true" className="h-4 w-4 text-gold-400" strokeWidth={1.5} />
-            {siteConfig.contact.email}
-          </a>
-          <a href={`tel:${siteConfig.contact.phoneHref}`} className="flex items-center gap-3 hover:text-gold-300">
-            <Phone aria-hidden="true" className="h-4 w-4 text-gold-400" strokeWidth={1.5} />
-            {siteConfig.contact.phone}
-          </a>
+          <p className="flex items-start gap-3">
+            <MapPin aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-gold-400" strokeWidth={1.5} />
+            <span>
+              {siteConfig.address.street}, {siteConfig.address.postalCode} {siteConfig.address.city}
+            </span>
+          </p>
+          {siteConfig.contact.email && (
+            <a href={`mailto:${siteConfig.contact.email}`} className="flex items-center gap-3 hover:text-gold-300">
+              <Mail aria-hidden="true" className="h-4 w-4 text-gold-400" strokeWidth={1.5} />
+              {siteConfig.contact.email}
+            </a>
+          )}
+          {siteConfig.contact.phone && (
+            <a href={`tel:${siteConfig.contact.phoneHref}`} className="flex items-center gap-3 hover:text-gold-300">
+              <Phone aria-hidden="true" className="h-4 w-4 text-gold-400" strokeWidth={1.5} />
+              {siteConfig.contact.phone}
+            </a>
+          )}
           <ul className="flex gap-6 pt-4 text-xs uppercase tracking-[0.18em] text-white/50">
             {legalNavigation.map((item) => (
               <li key={item.to}>

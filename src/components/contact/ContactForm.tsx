@@ -154,7 +154,7 @@ export function ContactForm() {
           </p>
         ) : (
           <p className="mx-auto mt-4 max-w-md leading-relaxed text-navy-600">
-            Wir haben Ihre Anfrage erhalten und melden uns zeitnah persönlich bei Ihnen.
+            Ihre Nachricht wurde übermittelt.
           </p>
         )}
         <Button variant="outline" className="mt-9" onClick={() => setStatus('idle')}>
@@ -352,11 +352,15 @@ export function ContactForm() {
         <div role="alert" className="mt-8 flex gap-3 border border-red-600/30 bg-red-50 p-5 text-sm leading-relaxed text-red-800">
           <CircleAlert aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0" strokeWidth={2} />
           <p>
-            Ihre Nachricht konnte leider nicht gesendet werden. Bitte versuchen Sie es später erneut oder schreiben Sie
-            uns direkt an{' '}
-            <a href={`mailto:${siteConfig.contact.email}`} className="font-semibold underline underline-offset-4">
-              {siteConfig.contact.email}
-            </a>
+            Ihre Nachricht konnte leider nicht gesendet werden. Bitte versuchen Sie es später erneut
+            {siteConfig.contact.email ? (
+              <>
+                {' '}oder schreiben Sie direkt an{' '}
+                <a href={`mailto:${siteConfig.contact.email}`} className="font-semibold underline underline-offset-4">
+                  {siteConfig.contact.email}
+                </a>
+              </>
+            ) : null}
             .
           </p>
         </div>
@@ -366,7 +370,7 @@ export function ContactForm() {
         <p className="max-w-xs text-xs leading-relaxed text-navy-500">
           {demoMode
             ? 'Demo-Modus: Das Formular ist noch mit keinem Empfangsdienst verbunden. Eingaben werden geprüft, aber nicht übertragen.'
-            : 'Ihre Angaben werden verschlüsselt übertragen und ausschließlich zur Bearbeitung Ihrer Anfrage verwendet.'}
+            : 'Ihre Angaben werden verschlüsselt übertragen und zur Bearbeitung Ihrer Anfrage verwendet.'}
         </p>
         <Button type="submit" size="lg" disabled={status === 'submitting'} className="w-full sm:w-auto">
           {status === 'submitting' ? (

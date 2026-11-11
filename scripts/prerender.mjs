@@ -89,5 +89,11 @@ const manifest = {
 };
 await writeFile('site.webmanifest', `${JSON.stringify(manifest, null, 2)}\n`);
 
+if (!siteConfig.preview.enabled) {
+  const host = new URL(siteConfig.siteUrl).hostname;
+  if (!host.endsWith('github.io')) await writeFile('CNAME', `${host}
+`);
+}
+
 await fs.rm(ssrDir, { recursive: true, force: true });
 console.log('Prerendering abgeschlossen.\n');

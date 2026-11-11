@@ -2,10 +2,10 @@ import { useEffect, useState } from 'react';
 import { Info, X } from 'lucide-react';
 import { siteConfig } from '../../config/site.config';
 
-const STORAGE_KEY = 'sample-notice-dismissed';
+const STORAGE_KEY = 'preview-notice-dismissed';
 
-/** Schmaler Hinweisbalken, der die Inhalte als fiktive Musterinhalte kennzeichnet. */
-export function SampleNotice() {
+/** Hinweisbalken der Entwicklungsvorschau – im Produktions-Build nicht vorhanden. */
+export function PreviewNotice() {
   const [dismissed, setDismissed] = useState(false);
 
   useEffect(() => {
@@ -16,7 +16,7 @@ export function SampleNotice() {
     }
   }, []);
 
-  if (!siteConfig.sample.enabled || dismissed) return null;
+  if (!siteConfig.preview.enabled || dismissed) return null;
 
   const dismiss = () => {
     setDismissed(true);
@@ -32,7 +32,7 @@ export function SampleNotice() {
       <div className="mx-auto flex max-w-7xl items-center justify-center gap-3 px-5 py-2 sm:px-8 lg:px-12">
         <Info aria-hidden="true" className="hidden h-3.5 w-3.5 shrink-0 text-gold-400 sm:block" strokeWidth={2} />
         <p className="text-center text-[11px] font-medium leading-snug tracking-wide sm:text-xs">
-          {siteConfig.sample.notice}
+          {siteConfig.preview.notice}
         </p>
         <button
           type="button"

@@ -1,13 +1,14 @@
 {
-  "name": "aurenfeld-holding-website",
+  "name": "robinbohmgmbh-website",
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "Corporate-Website (Beispielprojekt) für eine fiktive deutsche Holdinggesellschaft – React, TypeScript, Tailwind CSS.",
+  "description": "Website der Robin Böhm GmbH – React, TypeScript, Tailwind CSS, vorgerendert für GitHub Pages.",
   "scripts": {
     "dev": "vite",
+    "dev:staging": "vite --mode staging",
     "build": "tsc -b && vite build && vite build --ssr src/entry-server.tsx --outDir dist-ssr && node scripts/prerender.mjs",
-    "build:spa": "tsc -b && vite build",
+    "build:staging": "tsc -b && vite build --mode staging && vite build --mode staging --ssr src/entry-server.tsx --outDir dist-ssr && node scripts/prerender.mjs",
     "preview": "vite preview",
     "typecheck": "tsc -b"
   },

@@ -7,7 +7,7 @@ import { Button } from '../ui/Button';
 import { Container } from '../ui/Container';
 import { Logo } from '../ui/Logo';
 import { MobileMenu } from './MobileMenu';
-import { SampleNotice } from './SampleNotice';
+import { PreviewNotice } from './PreviewNotice';
 
 export function Header() {
   const [scrolled, setScrolled] = useState(false);
@@ -49,7 +49,7 @@ export function Header() {
           solid ? 'bg-navy-950/95 shadow-[0_12px_40px_-16px_rgba(0,0,0,0.55)] backdrop-blur-md' : 'bg-transparent',
         )}
       >
-        <SampleNotice />
+        <PreviewNotice />
         <Container>
           <div
             className={cn(

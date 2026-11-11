@@ -6,6 +6,9 @@ const REQUEST_TIMEOUT_MS = 15000;
 
 export const isContactFormDemoMode = () => siteConfig.contactForm.endpoint.trim() === '';
 
+/** Das Formular erscheint nur mit konfiguriertem Endpunkt – oder in der Vorschau (Demo-Modus). */
+export const isContactFormEnabled = () => !isContactFormDemoMode() || siteConfig.preview.enabled;
+
 /**
  * Sendet eine Kontaktanfrage als JSON an den konfigurierten Endpunkt
  * (kompatibel u. a. mit Formspree, Web3Forms oder einem eigenen Backend).

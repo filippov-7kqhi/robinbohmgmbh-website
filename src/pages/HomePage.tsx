@@ -1,11 +1,11 @@
 import type { CSSProperties } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Check, Quote } from 'lucide-react';
+import { ArrowRight, Check, MapPin } from 'lucide-react';
 import { pages } from '../config/pages';
 import { siteConfig } from '../config/site.config';
 import { asset } from '../lib/paths';
 import { businessAreas } from '../content/businessAreas';
-import { approachSteps, educationFocus, hallmarks } from '../content/company';
+import { heroFacts } from '../content/company';
 import { Seo } from '../components/seo/Seo';
 import { ArrowLink, Button } from '../components/ui/Button';
 import { Container } from '../components/ui/Container';
@@ -16,6 +16,7 @@ import { Section } from '../components/ui/Section';
 import { SectionHeading } from '../components/ui/SectionHeading';
 
 const delay = (ms: number) => ({ animationDelay: `${ms}ms` }) as CSSProperties;
+const { brand, address, legal } = siteConfig;
 
 function HomeHero() {
   return (
@@ -41,46 +42,46 @@ function HomeHero() {
         <div className="max-w-4xl">
           <p className="eyebrow animate-fade-up text-gold-300" style={delay(150)}>
             <span aria-hidden="true" className="h-px w-8 bg-gold-400" />
-            Holding · Beteiligungen · Bildung
+            {brand.legalName} · {address.city}
           </p>
-          <h1 className="mt-7 font-display text-[2.9rem] font-semibold leading-[1] tracking-[-0.02em] sm:text-7xl lg:text-[6.2rem]">
+          <h1 className="mt-7 font-display text-[2.9rem] font-semibold leading-[1] tracking-[-0.02em] sm:text-7xl lg:text-[6rem]">
             <span className="block animate-fade-up" style={delay(280)}>
-              Kapital mit Verantwortung.
+              Vermögen und Beteiligungen.
             </span>
             <span className="block animate-fade-up italic text-gold-300" style={delay(420)}>
-              Bildung mit Perspektive.
+              Mit Schwerpunkt Bildung.
             </span>
           </h1>
           <p
             className="mt-8 max-w-2xl animate-fade-up text-[17px] leading-relaxed text-white/75 sm:text-xl sm:leading-relaxed"
             style={delay(580)}
           >
-            Die {siteConfig.brand.fullName} verwaltet Gesellschaftsvermögen, hält langfristige
-            Unternehmensbeteiligungen und investiert gezielt in Bildung und digitale Lernangebote – mit
-            unternehmerischem Anspruch und einem Horizont, der weit über Quartale hinausreicht.
+            Die {brand.legalName} mit Sitz in {address.city} verwaltet Gesellschaftsvermögen und
+            Unternehmensbeteiligungen – vorrangig im Bildungsbereich.
           </p>
           <div className="mt-10 flex animate-fade-up flex-wrap gap-4" style={delay(720)}>
             <Button to="/geschaeftsbereiche" size="lg" withArrow>
-              Geschäftsbereiche entdecken
+              Geschäftsbereiche
             </Button>
             <Button to="/kontakt" size="lg" variant="secondary">
-              Kontakt aufnehmen
+              Kontakt
             </Button>
           </div>
         </div>
 
-        <ul className="mt-16 grid animate-fade-in grid-cols-1 border-t border-white/15 sm:grid-cols-2 lg:mt-24 lg:grid-cols-4" style={delay(900)}>
-          {hallmarks.map((item, index) => (
+        <ul
+          className="mt-16 grid animate-fade-in grid-cols-1 border-t border-white/15 sm:grid-cols-2 lg:mt-24 lg:grid-cols-4"
+          style={delay(900)}
+          aria-label="Eckdaten"
+        >
+          {heroFacts.map((item) => (
             <li
               key={item.title}
               className="flex gap-4 border-b border-white/10 py-6 sm:border-b-0 sm:py-7 lg:border-l lg:px-7 lg:first:border-l-0 lg:first:pl-0"
             >
               <item.icon aria-hidden="true" className="mt-0.5 h-5 w-5 shrink-0 text-gold-400" strokeWidth={1.5} />
               <div>
-                <p className="text-[13px] font-bold uppercase tracking-[0.16em] text-white">
-                  <span className="sr-only">{index + 1}. </span>
-                  {item.title}
-                </p>
+                <p className="text-[13px] font-bold uppercase tracking-[0.16em] text-white">{item.title}</p>
                 <p className="mt-1.5 text-sm leading-snug text-white/60">{item.text}</p>
               </div>
             </li>
@@ -101,7 +102,12 @@ function HomeHero() {
 }
 
 function IntroSection() {
-  const focus = ['Langfristige Unternehmensbeteiligungen', 'Verantwortungsvolle Vermögensverwaltung', 'Investitionen in Bildung', 'Digitale Lerninnovation'];
+  const focus = [
+    'Verwaltung von Gesellschaftsvermögen',
+    'Verwaltung von Unternehmensbeteiligungen',
+    'Schwerpunkt im Bildungsbereich',
+    `Sitz in ${address.city}`,
+  ];
 
   return (
     <Section tone="white" labelledBy="intro-title">
@@ -113,33 +119,37 @@ function IntroSection() {
             aspect="aspect-[4/5]"
             frame="left"
           />
-          <div className="absolute -bottom-10 right-4 max-w-[250px] bg-navy-950 p-7 text-white shadow-[0_30px_60px_-20px_rgba(8,20,42,0.6)] sm:right-[-2rem]">
-            <Quote aria-hidden="true" className="h-6 w-6 text-gold-400" strokeWidth={1.5} />
-            <p className="mt-3 font-display text-[1.7rem] font-medium italic leading-tight">Substanz vor Tempo.</p>
-            <p className="mt-3 text-[10px] font-bold uppercase tracking-[0.24em] text-white/55">Unser Leitgedanke</p>
+          <div className="absolute -bottom-10 right-4 max-w-[290px] bg-navy-950 p-7 text-white shadow-[0_30px_60px_-20px_rgba(8,20,42,0.6)] sm:right-[-2rem]">
+            <MapPin aria-hidden="true" className="h-6 w-6 text-gold-400" strokeWidth={1.5} />
+            <p className="mt-3 text-[10px] font-bold uppercase tracking-[0.24em] text-white/55">Sitz der Gesellschaft</p>
+            <p className="mt-2 whitespace-nowrap font-display text-[1.35rem] font-medium leading-snug">
+              {address.street}
+              <br />
+              {address.postalCode} {address.city}
+            </p>
           </div>
         </Reveal>
 
         <div className="lg:col-span-7">
           <SectionHeading
-            eyebrow="Die Holding"
+            eyebrow="Das Unternehmen"
             id="intro-title"
             title={
               <>
-                Eine Holding mit <span className="italic text-gold-700">klarer Haltung.</span>
+                {brand.legalName} <span className="italic text-gold-700">im Überblick.</span>
               </>
             }
           />
           <Reveal delay={200}>
             <div className="mt-8 space-y-5 text-[17px] leading-[1.8] text-navy-600">
               <p>
-                Wir verstehen uns als unternehmerisch geprägte Holding, die Kapital, Erfahrung und Verantwortung
-                zusammenführt. Unter einem gemeinsamen Dach bündeln wir die Verwaltung unseres
-                Gesellschaftsvermögens, langfristige Beteiligungen und gezielte Investitionen in Bildung.
+                Die {brand.legalName} ist eine Gesellschaft mit beschränkter Haftung mit Sitz in {address.city}.
+                Gegenstand des Unternehmens ist die Verwaltung von Gesellschaftsvermögen und
+                Unternehmensbeteiligungen, vorrangig im Bildungsbereich.
               </p>
               <p>
-                Unser Anspruch: Werte schaffen, die Bestand haben – für Unternehmen, für die Menschen, die in ihnen
-                arbeiten, und für eine Gesellschaft, die auf gute Bildung angewiesen ist.
+                Die Gesellschaft ist im Handelsregister beim {legal.registerCourt} unter {legal.registerNumber}{' '}
+                eingetragen. Geschäftsführung: {legal.managingDirectors.join(', ')}.
               </p>
             </div>
           </Reveal>
@@ -157,7 +167,7 @@ function IntroSection() {
           </Reveal>
           <Reveal delay={340}>
             <ArrowLink to="/ueber-uns" className="mt-12">
-              Mehr über uns erfahren
+              Mehr über das Unternehmen
             </ArrowLink>
           </Reveal>
         </div>
@@ -176,19 +186,19 @@ function AreasSection() {
           id="areas-title"
           title={
             <>
-              Fünf Bereiche. <span className="italic text-gold-700">Eine Strategie.</span>
+              Vermögen, Beteiligungen, <span className="italic text-gold-700">Bildung.</span>
             </>
           }
-          lead="Unsere Geschäftsbereiche greifen ineinander: Die Vermögensverwaltung schafft Stabilität, Beteiligungen und Unternehmensentwicklung schaffen Wert, Bildungsinvestitionen geben unserer Arbeit ihre Richtung."
+          lead="Der Unternehmensgegenstand umfasst die Verwaltung von Gesellschaftsvermögen und Unternehmensbeteiligungen – mit Schwerpunkt im Bildungsbereich."
         />
         <Reveal delay={200} className="shrink-0">
           <Button to="/geschaeftsbereiche" variant="outline" withArrow>
-            Alle Bereiche im Detail
+            Zu den Geschäftsbereichen
           </Button>
         </Reveal>
       </div>
 
-      <div className="mt-16 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-16 grid gap-5 md:grid-cols-3">
         {businessAreas.map((area, index) => (
           <Reveal key={area.id} delay={index * 90} className="h-full">
             <Link
@@ -223,24 +233,6 @@ function AreasSection() {
             </Link>
           </Reveal>
         ))}
-
-        <Reveal delay={businessAreas.length * 90} className="h-full">
-          <div className="relative flex h-full flex-col justify-between overflow-hidden bg-navy-950 p-8 text-white sm:p-10">
-            <div aria-hidden="true" className="absolute -right-24 -top-24 h-64 w-64 rounded-full bg-gold-400/15 blur-3xl" />
-            <div className="relative">
-              <p className="text-[11px] font-bold uppercase tracking-[0.24em] text-gold-300">Ihr Vorhaben</p>
-              <p className="mt-6 font-display text-[2rem] font-semibold leading-tight">
-                Sie suchen einen langfristigen Partner?
-              </p>
-              <p className="mt-4 text-[15px] leading-relaxed text-white/65">
-                Sprechen Sie mit uns über Nachfolge, Wachstum oder Ihre Bildungsinitiative.
-              </p>
-            </div>
-            <Button to="/kontakt" className="relative mt-10 self-start" withArrow>
-              Gespräch vereinbaren
-            </Button>
-          </div>
-        </Reveal>
       </div>
     </Section>
   );
@@ -256,30 +248,21 @@ function EducationSection() {
         <div>
           <SectionHeading
             tone="onDark"
-            eyebrow="Schwerpunkt Bildung"
+            eyebrow="Schwerpunkt"
             id="education-title"
             title={
               <>
-                Bildung ist die nachhaltigste Investition in die <span className="italic text-gold-300">Zukunft.</span>
+                Ausrichtung auf den <span className="italic text-gold-300">Bildungsbereich.</span>
               </>
             }
-            lead="Gut ausgebildete Menschen sind die Grundlage jeder erfolgreichen Volkswirtschaft. Deshalb investieren wir gezielt in Organisationen, die Lernen zugänglicher, wirksamer und praxisnäher machen – analog wie digital."
+            lead={`Die Verwaltung von Gesellschaftsvermögen und Unternehmensbeteiligungen erfolgt bei der ${brand.legalName} vorrangig im Bildungsbereich.`}
           />
-          <ul className="mt-12 grid gap-px overflow-hidden border border-white/10 bg-white/10 sm:grid-cols-2">
-            {educationFocus.map((item, index) => (
-              <Reveal as="li" key={item.title} delay={index * 90} className="bg-navy-950 p-6">
-                <item.icon aria-hidden="true" className="h-6 w-6 text-gold-400" strokeWidth={1.4} />
-                <p className="mt-4 font-semibold text-white">{item.title}</p>
-                <p className="mt-1 text-sm leading-relaxed text-white/55">{item.text}</p>
-              </Reveal>
-            ))}
-          </ul>
           <Reveal delay={200} className="mt-12 flex flex-wrap gap-4">
             <Button to="/beteiligungen" withArrow>
-              Zu den Beteiligungen
+              Beteiligungen
             </Button>
-            <Button to="/geschaeftsbereiche#bildungsinvestitionen" variant="secondary">
-              Bildungsinvestitionen
+            <Button to="/geschaeftsbereiche#bildungsbereich" variant="secondary">
+              Schwerpunkt Bildung
             </Button>
           </Reveal>
         </div>
@@ -294,59 +277,9 @@ function EducationSection() {
           <div className="absolute -left-2 bottom-8 hidden max-w-[220px] border border-white/10 bg-navy-950/90 p-6 backdrop-blur sm:block lg:-left-10">
             <p className="font-display text-4xl font-semibold text-gold-300">03</p>
             <p className="mt-2 text-xs font-bold uppercase leading-relaxed tracking-[0.18em] text-white/75">
-              Geschäftsbereich Bildungsinvestitionen
+              Schwerpunkt Bildungsbereich
             </p>
           </div>
-        </Reveal>
-      </Container>
-    </section>
-  );
-}
-
-function ApproachSection() {
-  return (
-    <Section tone="white" labelledBy="approach-title">
-      <SectionHeading
-        eyebrow="Unser Ansatz"
-        id="approach-title"
-        title={
-          <>
-            Vom ersten Gespräch zur <span className="italic text-gold-700">gemeinsamen Entwicklung.</span>
-          </>
-        }
-        lead="Wir investieren mit Sorgfalt und begleiten mit Überzeugung. Unsere Arbeitsweise folgt vier klaren Schritten."
-      />
-      <ol className="mt-16 grid gap-12 sm:grid-cols-2 lg:mt-20 lg:grid-cols-4 lg:gap-10">
-        {approachSteps.map((step, index) => (
-          <Reveal as="li" key={step.number} delay={index * 120} className="relative border-t border-navy-950/15 pt-8">
-            <span aria-hidden="true" className="absolute -top-px left-0 h-px w-16 bg-gold-500" />
-            <span className="font-display text-6xl font-semibold leading-none text-gold-500">{step.number}</span>
-            <h3 className="mt-5 text-lg font-bold text-navy-950">{step.title}</h3>
-            <p className="mt-3 text-[15px] leading-relaxed text-navy-600">{step.text}</p>
-          </Reveal>
-        ))}
-      </ol>
-    </Section>
-  );
-}
-
-function StatementSection() {
-  return (
-    <section className="relative isolate overflow-hidden bg-ivory py-24 sm:py-32" aria-label="Leitgedanke">
-      <div aria-hidden="true" className="bg-grid-lines-dark absolute inset-0 -z-10" />
-      <Container size="narrow" className="text-center">
-        <Reveal>
-          <Quote aria-hidden="true" className="mx-auto h-10 w-10 text-gold-500" strokeWidth={1.25} />
-        </Reveal>
-        <Reveal delay={100}>
-          <blockquote className="mt-8 font-display text-[2rem] font-medium italic leading-[1.25] text-navy-950 sm:text-[2.75rem] lg:text-5xl">
-            „Wir investieren nicht in Quartalszahlen, sondern in Menschen, Ideen und Strukturen, die Bestand haben.“
-          </blockquote>
-        </Reveal>
-        <Reveal delay={200}>
-          <p className="mt-10 text-[11px] font-bold uppercase tracking-[0.28em] text-gold-700">
-            Leitgedanke der {siteConfig.brand.fullName}
-          </p>
         </Reveal>
       </Container>
     </section>
@@ -361,17 +294,15 @@ export default function HomePage() {
       <IntroSection />
       <AreasSection />
       <EducationSection />
-      <ApproachSection />
-      <StatementSection />
       <CtaBand
         title={
           <>
-            Lassen Sie uns über Ihr <span className="italic text-gold-300">Vorhaben</span> sprechen.
+            Kontakt zur <span className="italic text-gold-300">{brand.legalName}.</span>
           </>
         }
-        text="Ob Unternehmensnachfolge, Wachstumsfinanzierung oder Bildungsinitiative – wir freuen uns auf ein vertrauliches, unverbindliches Gespräch."
-        primary={{ label: 'Kontakt aufnehmen', to: '/kontakt' }}
-        secondary={{ label: 'Investitionskriterien', to: '/beteiligungen#kriterien' }}
+        text="Anschrift und Kontaktmöglichkeiten finden Sie auf unserer Kontaktseite."
+        primary={{ label: 'Zur Kontaktseite', to: '/kontakt' }}
+        secondary={{ label: 'Über das Unternehmen', to: '/ueber-uns' }}
       />
     </>
   );

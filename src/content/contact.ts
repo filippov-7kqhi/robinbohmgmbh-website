@@ -5,9 +5,8 @@ export interface ContactTopic {
 
 export const contactTopics: ContactTopic[] = [
   { value: 'allgemein', label: 'Allgemeine Anfrage' },
-  { value: 'beteiligung', label: 'Beteiligung / Unternehmensnachfolge' },
-  { value: 'bildung', label: 'Bildungsinitiative oder Kooperation' },
-  { value: 'edtech', label: 'EdTech & digitale Bildung' },
-  { value: 'presse', label: 'Presse & Kommunikation' },
+  { value: 'beteiligungen', label: 'Beteiligungen' },
+  { value: 'bildung', label: 'Bildungsbereich' },
+  { value: 'presse', label: 'Presse' },
   { value: 'sonstiges', label: 'Sonstiges' },
 ];

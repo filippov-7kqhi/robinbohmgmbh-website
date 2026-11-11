@@ -1,7 +1,8 @@
-import { Check } from 'lucide-react';
 import { pages } from '../config/pages';
+import { siteConfig } from '../config/site.config';
 import { businessAreas } from '../content/businessAreas';
 import { Seo } from '../components/seo/Seo';
+import { ArrowLink } from '../components/ui/Button';
 import { Container } from '../components/ui/Container';
 import { CtaBand } from '../components/ui/CtaBand';
 import { ImageFrame } from '../components/ui/ImageFrame';
@@ -10,21 +11,23 @@ import { Reveal } from '../components/ui/Reveal';
 import { cn } from '../lib/cn';
 
 export default function BusinessAreasPage() {
+  const company = siteConfig.brand.legalName;
+
   return (
     <>
       <Seo page={pages.business} />
       <PageHero
         eyebrow="Geschäftsbereiche"
         breadcrumb="Geschäftsbereiche"
-        image="/images/strategy-desk.jpg"
+        image="/images/office-corridor.jpg"
         title={
           <>
-            Fünf Bereiche.
+            Geschäftsbereiche.
             <br />
-            <span className="italic text-gold-300">Eine gemeinsame Strategie.</span>
+            <span className="italic text-gold-300">Vermögen, Beteiligungen, Bildung.</span>
           </>
         }
-        lead="Von der Verwaltung des Gesellschaftsvermögens bis zur digitalen Bildung: Unsere Geschäftsbereiche ergänzen sich gegenseitig und folgen einem gemeinsamen Ziel – nachhaltigen Wert zu schaffen."
+        lead={`Unternehmensgegenstand der ${company} ist die Verwaltung von Gesellschaftsvermögen und Unternehmensbeteiligungen, vorrangig im Bildungsbereich.`}
       />
 
       {/* Sprungnavigation */}
@@ -59,7 +62,12 @@ export default function BusinessAreasPage() {
           >
             <Container className="grid items-center gap-16 lg:grid-cols-2 lg:gap-20 xl:gap-28">
               <Reveal className={cn(reversed && 'lg:order-last')}>
-                <ImageFrame src={area.image} alt={area.imageAlt} aspect="aspect-[4/3] lg:aspect-[5/6]" frame={reversed ? 'right' : 'left'} />
+                <ImageFrame
+                  src={area.image}
+                  alt={area.imageAlt}
+                  aspect="aspect-[4/3] lg:aspect-[5/6]"
+                  frame={reversed ? 'right' : 'left'}
+                />
               </Reveal>
 
               <div>
@@ -80,31 +88,16 @@ export default function BusinessAreasPage() {
                   <p className="mt-3 text-[11px] font-bold uppercase tracking-[0.22em] text-gold-700">{area.subtitle}</p>
                 </Reveal>
                 <Reveal delay={160}>
-                  <div className="mt-8 space-y-5 text-[16.5px] leading-[1.8] text-navy-600">
+                  <div className="mt-8 space-y-5 text-[17px] leading-[1.8] text-navy-600">
                     {area.description.map((paragraph) => (
-                      <p key={paragraph.slice(0, 24)}>{paragraph}</p>
+                      <p key={paragraph.slice(0, 32)}>{paragraph}</p>
                     ))}
                   </div>
                 </Reveal>
-                <Reveal delay={220}>
-                  <h3 className="mt-10 text-[11px] font-bold uppercase tracking-[0.22em] text-navy-950">
-                    Leistungsschwerpunkte
-                  </h3>
-                  <ul className="mt-5 space-y-3">
-                    {area.services.map((service) => (
-                      <li key={service} className="flex items-start gap-3 text-[15.5px] text-navy-800">
-                        <span className="mt-1 flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-gold-100">
-                          <Check aria-hidden="true" className="h-2.5 w-2.5 text-gold-700" strokeWidth={3.5} />
-                        </span>
-                        {service}
-                      </li>
-                    ))}
-                  </ul>
-                </Reveal>
-                <Reveal delay={280}>
-                  <blockquote className="mt-10 border-l-2 border-gold-500 pl-6 font-display text-[1.45rem] font-medium italic leading-snug text-navy-900">
-                    {area.principle}
-                  </blockquote>
+                <Reveal delay={240}>
+                  <ArrowLink to="/kontakt" className="mt-10">
+                    Kontakt aufnehmen
+                  </ArrowLink>
                 </Reveal>
               </div>
             </Container>
@@ -113,14 +106,13 @@ export default function BusinessAreasPage() {
       })}
 
       <CtaBand
-        eyebrow="Austausch"
         title={
           <>
-            Passt Ihr Vorhaben zu einem unserer <span className="italic text-gold-300">Bereiche?</span>
+            Kontakt zur <span className="italic text-gold-300">{company}.</span>
           </>
         }
-        text="Sprechen Sie uns an – wir prüfen gerne gemeinsam mit Ihnen, ob und wie eine Zusammenarbeit sinnvoll ist."
-        primary={{ label: 'Kontakt aufnehmen', to: '/kontakt' }}
+        text="Anschrift und Kontaktmöglichkeiten finden Sie auf unserer Kontaktseite."
+        primary={{ label: 'Zur Kontaktseite', to: '/kontakt' }}
         secondary={{ label: 'Beteiligungen', to: '/beteiligungen' }}
       />
     </>

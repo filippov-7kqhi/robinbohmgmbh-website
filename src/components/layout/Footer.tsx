@@ -15,7 +15,7 @@ const linkClass = 'text-sm text-white/65 transition-colors duration-300 hover:te
 
 export function Footer() {
   const year = new Date().getFullYear();
-  const { brand, contact, address, sample } = siteConfig;
+  const { brand, contact, address, legal, preview } = siteConfig;
 
   const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
 
@@ -31,9 +31,12 @@ export function Footer() {
         <div className="sm:col-span-2 lg:col-span-4">
           <Logo />
           <p className="mt-7 max-w-sm text-sm leading-relaxed text-white/60">{brand.description}</p>
-          {sample.enabled && (
+          <p className="mt-5 text-xs leading-relaxed text-white/45">
+            {legal.registerCourt} · {legal.registerNumber}
+          </p>
+          {preview.enabled && (
             <p className="mt-6 max-w-sm border-l-2 border-gold-500/60 pl-4 text-xs leading-relaxed text-gold-200/80">
-              {sample.notice}
+              {preview.notice}
             </p>
           )}
         </div>
@@ -77,18 +80,22 @@ export function Footer() {
                 {address.postalCode} {address.city}
               </span>
             </p>
-            <p>
-              <a href={`mailto:${contact.email}`} className="flex gap-3 transition-colors hover:text-white">
-                <Mail aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-gold-400" strokeWidth={1.5} />
-                {contact.email}
-              </a>
-            </p>
-            <p>
-              <a href={`tel:${contact.phoneHref}`} className="flex gap-3 transition-colors hover:text-white">
-                <Phone aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-gold-400" strokeWidth={1.5} />
-                {contact.phone}
-              </a>
-            </p>
+            {contact.email && (
+              <p>
+                <a href={`mailto:${contact.email}`} className="flex gap-3 transition-colors hover:text-white">
+                  <Mail aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-gold-400" strokeWidth={1.5} />
+                  {contact.email}
+                </a>
+              </p>
+            )}
+            {contact.phone && (
+              <p>
+                <a href={`tel:${contact.phoneHref}`} className="flex gap-3 transition-colors hover:text-white">
+                  <Phone aria-hidden="true" className="mt-0.5 h-4 w-4 shrink-0 text-gold-400" strokeWidth={1.5} />
+                  {contact.phone}
+                </a>
+              </p>
+            )}
           </address>
         </div>
       </Container>
@@ -96,8 +103,7 @@ export function Footer() {
       <div className="border-t border-white/10">
         <Container className="flex flex-col gap-5 py-7 text-xs text-white/50 sm:flex-row sm:items-center sm:justify-between">
           <p>
-            © {year} {brand.legalName}
-            {sample.enabled ? ' (fiktive Beispielmarke)' : ''}. Alle Rechte vorbehalten.
+            © {year} {brand.legalName}. Alle Rechte vorbehalten.
           </p>
           <ul className="flex flex-wrap items-center gap-x-7 gap-y-3">
             {legalNavigation.map((item) => (

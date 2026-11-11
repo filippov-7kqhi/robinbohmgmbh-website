@@ -1,45 +1,54 @@
-# Aurenfeld Holding – Corporate-Website (Beispielprojekt)
+# Website der Robin Böhm GmbH
 
-Deutschsprachige Corporate-Website für eine **fiktive** Holdinggesellschaft (Beteiligungen, Vermögensverwaltung, Bildungsinvestitionen).
-React 18 · TypeScript · Tailwind CSS · Vite · statisches Prerendering für SEO.
+Unternehmenswebsite der Robin Böhm GmbH (Berlin) – React 18 · TypeScript · Tailwind CSS · Vite, statisch vorgerendert für GitHub Pages.
 
-> „Aurenfeld Holding“ ist eine erfundene Beispielmarke. Alle Inhalte sind Musterinhalte. Vor einem Einsatz für ein reales Unternehmen müssen Firmendaten, Impressum, Datenschutzerklärung und Texte durch zutreffende Angaben dieses Unternehmens ersetzt werden.
+- **Produktion:** https://robinbohmgmbh.shop (Repository `filippov-7kqhi/robinbohmgmbh.shop`, derzeit Platzhalterseite „Website im Aufbau“)
+- **Entwicklungsvorschau:** https://filippov-7kqhi.github.io/robinbohmgmbh-website/ (Branch `gh-pages` dieses Repositorys, `noindex`)
+
+## Grundsatz
+
+Die Website enthält ausschließlich bestätigte Angaben: Firma, Rechtsform, Anschrift, Geschäftsführung, Registergericht, Registernummer und Unternehmensgegenstand. Nicht vorliegende Angaben bleiben leer. In der Vorschau sind sie markiert, und der Produktions-Build verweigert die Erstellung, solange Pflichtangaben fehlen.
 
 ## Befehle
 
 ```bash
-npm install        # Abhängigkeiten installieren
-npm run dev        # Entwicklungsserver (http://localhost:5173)
-npm run build      # Typprüfung + Build + Prerendering → dist/
-npm run preview    # Produktions-Build lokal ansehen
+npm install
+npm run dev            # Entwicklung mit Produktionskonfiguration (http://localhost:5173)
+npm run dev:staging    # Entwicklung mit Vorschaukonfiguration (Hinweisbalken, Demo-Formular)
+npm run build:staging  # Vorschau-Build → dist/ (Basis-Pfad /robinbohmgmbh-website/, noindex, ohne CNAME)
+npm run build          # Produktions-Build für robinbohmgmbh.shop → dist/ (inkl. CNAME) – nur mit vollständigen Pflichtangaben
 ```
+
+## Vor dem Livegang (Produktions-Build)
+
+Alle Angaben werden in `src/config/site.config.ts` gepflegt. `npm run build` prüft automatisch und bricht mit einer Liste ab, solange Folgendes fehlt:
+
+| Feld | Inhalt |
+| --- | --- |
+| `contact.email` | E-Mail-Adresse der Gesellschaft (Pflichtangabe, § 5 Abs. 1 Nr. 2 DDG) |
+| `contact.phone` / `contactForm.endpoint` | Telefonnummer oder ein funktionsfähiges Kontaktformular als zweiter Kommunikationsweg |
+| `privacy.transferBasis` | Rechtsgrundlage der Datenübermittlung an GitHub (USA) |
+| `release.contentApproved` | `true`, sobald die Gesellschaft die Inhalte freigegeben hat |
+
+Zusätzlich manuell zu prüfen: USt-IdNr. (`legal.vatId`, nur falls vorhanden), Registernummer laut Registerauszug, ggf. Datenschutzbeauftragte/r, Logo (derzeit vorläufiges Monogramm).
+
+## Veröffentlichung
+
+**Vorschau:** `npm run build:staging` und den Inhalt von `dist/` auf den Branch `gh-pages` dieses Repositorys pushen.
+
+**Produktion:** `npm run build`, prüfen, dass `dist/CNAME` den Inhalt `robinbohmgmbh.shop` hat, und den Inhalt von `dist/` auf den Branch `main` des Repositorys `robinbohmgmbh.shop` pushen. Das ersetzt die Platzhalterseite. DNS (A-Records auf GitHub Pages, `www` als CNAME), Custom Domain und HTTPS sind dort bereits eingerichtet.
 
 ## Inhalte bearbeiten
 
 | Was | Datei |
 | --- | --- |
-| Firmenname, Kontakt, Adresse, Impressumsdaten, Domain, SEO, Formular-Endpunkt | `src/config/site.config.ts` |
+| Firmendaten, Kontakt, Rechtliches, SEO, Formular | `src/config/site.config.ts` |
 | Navigation | `src/config/navigation.ts` |
 | Seitentitel & Meta-Beschreibungen | `src/config/pages.ts` |
 | Geschäftsbereiche | `src/content/businessAreas.ts` |
-| Werte, Grundsätze, Leitung | `src/content/company.ts` |
-| Beteiligungsformen, Kriterien, Ablauf | `src/content/investments.ts` |
+| Eckdaten | `src/content/company.ts` |
 | Farben & Schriften | `tailwind.config.js` |
-| Bilder | `public/images/` |
-
-Platzhalter in `[eckigen Klammern]` werden auf der Website gelb hervorgehoben.
-`sample.enabled = false` blendet die Beispiel-Hinweise aus. `seo.allowIndexing = true` gibt die Seite für Suchmaschinen frei.
-
-## Kontaktformular
-
-Ohne `contactForm.endpoint` läuft das Formular im **Demo-Modus** (vollständige Validierung, keine Übertragung).
-Für echten Versand einen JSON-fähigen Endpunkt eintragen (z. B. Formspree, Web3Forms oder eigenes Backend), Zusatzfelder wie `access_key` über `extraFields`, und den Dienst unter `providerName` für die Datenschutzerklärung benennen.
-
-## SEO & Hosting
-
-`npm run build` erzeugt für jede Route eine vollständig vorgerenderte HTML-Datei (`dist/<route>/index.html`) mit Titel, Description, Canonical, Open Graph, Twitter Card und JSON-LD (Organization, WebSite, BreadcrumbList) sowie `404.html`, `sitemap.xml`, `robots.txt` und `site.webmanifest`.
-Der Ordner `dist/` kann auf jedem statischen Hosting veröffentlicht werden (GitHub Pages, Netlify, Cloudflare Pages, Apache, nginx). Vorher `siteUrl` in `site.config.ts` auf die echte Domain setzen.
 
 ## Bildnachweise
 
-Fotos: Unsplash (Unsplash-Lizenz). Icons: Lucide (ISC). Schriften: Manrope, Cormorant Garamond (SIL OFL), lokal eingebunden via Fontsource – keine Verbindung zu Google Fonts.
+Fotos: Unsplash (Unsplash-Lizenz). Icons: Lucide (ISC). Schriften: Manrope, Cormorant Garamond (SIL OFL), lokal eingebunden – keine Verbindung zu Google Fonts.

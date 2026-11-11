@@ -1,53 +1,67 @@
 /**
  * ============================================================================
- *  ZENTRALE UNTERNEHMENSKONFIGURATION
+ *  ZENTRALE UNTERNEHMENSKONFIGURATION – Robin Böhm GmbH
  * ============================================================================
  *  Alle firmenbezogenen Angaben werden ausschließlich hier gepflegt und
  *  automatisch übernommen in: Header, Footer, Kontaktseite, Impressum,
  *  Datenschutzerklärung, Meta-Tags, strukturierte Daten (JSON-LD),
- *  Sitemap, robots.txt und Web-App-Manifest.
+ *  Sitemap, robots.txt, CNAME und Web-App-Manifest.
  *
- *  WICHTIG: „Aurenfeld Holding" ist eine FIKTIVE Beispielmarke.
- *  Werte in [eckigen Klammern] sind Platzhalter. Sie werden auf der Website
- *  sichtbar markiert und müssen vor einer Veröffentlichung durch die
- *  zutreffenden Angaben des tatsächlichen Anbieters ersetzt werden.
+ *  Grundsatz: Es werden nur bestätigte Angaben eingetragen. Leere Felder
+ *  bedeuten „liegt noch nicht vor“ – sie werden in der Vorschau sichtbar
+ *  markiert. Der Produktions-Build (npm run build) bricht ab, solange
+ *  Pflichtangaben fehlen (siehe vite.config.ts → assertReleaseReady).
  *
  *  Diese Datei darf keine Browser-APIs oder Komponenten importieren, da sie
- *  auch von vite.config.ts und dem Prerender-Skript gelesen wird.
+ *  auch von vite.config.ts gelesen wird.
  * ============================================================================
  */
 
+/** Produktive Adresse der Website */
+const PRODUCTION_URL = 'https://robinbohmgmbh.shop';
+
+/**
+ * Adresse der Entwicklungsvorschau. Wird ausschließlich beim Vorschau-Build
+ * (npm run build:staging, Datei .env.staging) über vite.config.ts gesetzt.
+ */
+const PREVIEW_URL = typeof __PREVIEW_URL__ === 'string' ? __PREVIEW_URL__ : '';
+const IS_PREVIEW = PREVIEW_URL !== '';
+
 export interface SiteConfig {
   brand: {
-    /** Markenname (Wortmarke im Logo) */
+    /** Name in der Wortmarke */
     name: string;
     /** Zusatz unter der Wortmarke */
     suffix: string;
-    /** Kurzname für Texte und Seitentitel */
     fullName: string;
-    /** Vollständiger Firmenname inkl. Rechtsform */
+    /** Vollständige Firma inkl. Rechtsform */
     legalName: string;
-    tagline: string;
     description: string;
   };
-  /** Kennzeichnung als Beispiel-/Musterinhalt */
-  sample: {
+  /** Hinweisbalken der Entwicklungsvorschau */
+  preview: {
     enabled: boolean;
     notice: string;
   };
-  /**
-   * Öffentliche Adresse ohne abschließenden Schrägstrich – für Canonical-URLs, Sitemap & Open Graph.
-   * Enthält sie einen Unterpfad (z. B. GitHub Pages), wird dieser automatisch als Basis-Pfad verwendet.
-   */
+  release: {
+    /**
+     * Freigabe der Website-Inhalte durch die Gesellschaft. Erst wenn true,
+     * lässt sich der Produktions-Build erstellen.
+     */
+    contentApproved: boolean;
+  };
+  /** Öffentliche Adresse ohne abschließenden Schrägstrich (bestimmt auch den Basis-Pfad) */
   siteUrl: string;
+  productionUrl: string;
   language: string;
   locale: string;
   contact: {
+    /** Pflichtangabe nach § 5 Abs. 1 Nr. 2 DDG – leer = liegt noch nicht vor */
     email: string;
+    /** Anzeigeformat, leer = liegt noch nicht vor */
     phone: string;
-    /** Telefonnummer im E.164-Format für tel:-Links */
+    /** E.164-Format für tel:-Links */
     phoneHref: string;
-    officeHours: string;
   };
   address: {
     street: string;
@@ -60,27 +74,35 @@ export interface SiteConfig {
     managingDirectors: string[];
     registerCourt: string;
     registerNumber: string;
+    /** USt-IdNr. – nur eintragen, wenn vorhanden; leer = keine Angabe */
     vatId: string;
-    /** Verantwortlich i. S. d. § 18 Abs. 2 MStV */
-    contentResponsible: { name: string; address: string };
+    businessPurpose: string;
   };
   privacy: {
-    hostingProvider: string;
-    hostingAddress: string;
-    /** Datenschutzbeauftragte(r) – null, wenn keine Benennungspflicht besteht */
+    hosting: {
+      provider: string;
+      service: string;
+      privacyPolicyUrl: string;
+    };
+    /**
+     * Rechtsgrundlage der Datenübermittlung in die USA (Hosting über GitHub).
+     * Muss vom Verantwortlichen geprüft und eingetragen werden.
+     */
+    transferBasis: string;
     dataProtectionOfficer: { name: string; email: string } | null;
-    supervisoryAuthority: string;
+    supervisoryAuthority: { name: string; address: string };
     lastUpdated: string;
   };
   contactForm: {
     /**
      * Ziel-URL für den Formularversand (POST, JSON), z. B. Formspree, Web3Forms
-     * oder ein eigenes Backend. Leer lassen = Demo-Modus (Validierung ohne Versand).
+     * oder ein eigenes Backend. Leer = Formular wird in der Produktion nicht angezeigt
+     * (in der Vorschau läuft es im Demo-Modus ohne Versand).
      */
     endpoint: string;
-    /** Name des Formulardienstes für die Datenschutzerklärung (leer = nicht genannt) */
+    /** Name des Formulardienstes für die Datenschutzerklärung */
     providerName: string;
-    /** Zusätzliche Felder, die mitgesendet werden (z. B. { access_key: '…' } für Web3Forms) */
+    /** Zusätzliche Felder, z. B. { access_key: '…' } für Web3Forms */
     extraFields: Record<string, string>;
   };
   seo: {
@@ -90,10 +112,6 @@ export interface SiteConfig {
     ogImage: string;
     ogImageAlt: string;
     themeColor: string;
-    /**
-     * Suchmaschinen-Indexierung. Solange Musterinhalte aktiv sind, bleibt die
-     * Website auf „noindex" – nach Einpflegen echter Inhalte auf true setzen.
-     */
     allowIndexing: boolean;
   };
   social: { label: string; href: string }[];
@@ -101,56 +119,63 @@ export interface SiteConfig {
 
 export const siteConfig: SiteConfig = {
   brand: {
-    name: 'Aurenfeld',
-    suffix: 'Holding',
-    fullName: 'Aurenfeld Holding',
-    legalName: 'Aurenfeld Holding GmbH',
-    tagline: 'Kapital mit Verantwortung. Bildung mit Perspektive.',
+    name: 'Robin Böhm',
+    suffix: 'GmbH',
+    fullName: 'Robin Böhm GmbH',
+    legalName: 'Robin Böhm GmbH',
     description:
-      'Die Aurenfeld Holding verwaltet Gesellschaftsvermögen, hält langfristige Unternehmensbeteiligungen und investiert in Bildung sowie digitale Lerninnovationen.',
+      'Die Robin Böhm GmbH mit Sitz in Berlin verwaltet Gesellschaftsvermögen und Unternehmensbeteiligungen – vorrangig im Bildungsbereich.',
   },
 
-  sample: {
-    enabled: true,
-    notice:
-      'Entwicklungsvorschau einer fiktiven Beispielmarke – sämtliche Namen, Inhalte und Angaben sind Musterinhalte und beziehen sich auf kein reales Unternehmen.',
+  preview: {
+    enabled: IS_PREVIEW,
+    notice: `Entwicklungsvorschau – Entwurf, noch nicht freigegeben. Die Website wird nach Freigabe unter ${PRODUCTION_URL.replace('https://', '')} veröffentlicht.`,
   },
 
-  siteUrl: 'https://filippov-7kqhi.github.io/aurenfeld-holding',
+  release: {
+    contentApproved: false,
+  },
+
+  siteUrl: PREVIEW_URL || PRODUCTION_URL,
+  productionUrl: PRODUCTION_URL,
   language: 'de',
   locale: 'de_DE',
 
   contact: {
-    email: 'kontakt@example.com',
-    phone: '+49 (0) 000 000 000-0',
-    phoneHref: '+490000000000',
-    officeHours: 'Montag bis Freitag, 9:00 – 17:00 Uhr',
+    email: '',
+    phone: '',
+    phoneHref: '',
   },
 
   address: {
-    street: 'Musterstraße 1',
-    postalCode: '00000',
-    city: 'Musterstadt',
+    street: 'Lohmühlenstraße 65',
+    postalCode: '12435',
+    city: 'Berlin',
     country: 'Deutschland',
   },
 
   legal: {
     legalForm: 'Gesellschaft mit beschränkter Haftung (GmbH)',
-    managingDirectors: ['[Name der Geschäftsführung eintragen]'],
-    registerCourt: '[Registergericht eintragen]',
-    registerNumber: '[HRB-Nummer eintragen]',
-    vatId: '[USt-IdNr. eintragen, sofern vorhanden]',
-    contentResponsible: {
-      name: '[Name der verantwortlichen Person eintragen]',
-      address: 'Anschrift wie oben',
-    },
+    managingDirectors: ['Robin Böhm'],
+    registerCourt: 'Amtsgericht Charlottenburg',
+    registerNumber: 'HRB 224706',
+    vatId: '',
+    businessPurpose:
+      'Verwaltung von Gesellschaftsvermögen und Unternehmensbeteiligungen, vorrangig im Bildungsbereich',
   },
 
   privacy: {
-    hostingProvider: '[Name des Hosting-Anbieters eintragen]',
-    hostingAddress: '[Anschrift des Hosting-Anbieters eintragen]',
+    hosting: {
+      provider: 'GitHub Inc., San Francisco (USA)',
+      service: 'GitHub Pages',
+      privacyPolicyUrl: 'https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement',
+    },
+    transferBasis: '',
     dataProtectionOfficer: null,
-    supervisoryAuthority: '[Zuständige Datenschutz-Aufsichtsbehörde des Bundeslandes eintragen]',
+    supervisoryAuthority: {
+      name: 'Berliner Beauftragte für Datenschutz und Informationsfreiheit',
+      address: 'Alt-Moabit 59–61, 10555 Berlin',
+    },
     lastUpdated: 'November 2026',
   },
 
@@ -161,12 +186,12 @@ export const siteConfig: SiteConfig = {
   },
 
   seo: {
-    defaultTitle: 'Aurenfeld Holding – Beteiligungen, Vermögensverwaltung & Bildungsinvestitionen',
-    titleTemplate: '%s | Aurenfeld Holding',
+    defaultTitle: 'Robin Böhm GmbH – Verwaltung von Gesellschaftsvermögen und Beteiligungen',
+    titleTemplate: '%s | Robin Böhm GmbH',
     ogImage: '/og-image.jpg',
     ogImageAlt: 'Gläserne Hochhausfassaden mit goldenen Reflexionen',
     themeColor: '#08142A',
-    allowIndexing: false,
+    allowIndexing: !IS_PREVIEW,
   },
 
   social: [],

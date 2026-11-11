@@ -16,7 +16,8 @@ export interface PageMeta {
   sitemap?: { changefreq: 'weekly' | 'monthly' | 'yearly'; priority: number };
 }
 
-const brand = siteConfig.brand.fullName;
+const company = siteConfig.brand.legalName;
+const city = siteConfig.address.city;
 
 export const pages = {
   home: {
@@ -32,7 +33,7 @@ export const pages = {
     path: '/ueber-uns',
     title: 'Über uns',
     breadcrumb: 'Über uns',
-    description: `Lernen Sie die ${brand} kennen: Mission, Vision, Werte und Grundsätze einer unabhängigen Holding mit Fokus auf Beteiligungen und Bildung.`,
+    description: `Die ${company} im Überblick: Sitz in ${city}, Geschäftsführung, Handelsregistereintrag und Unternehmensgegenstand.`,
     sitemap: { changefreq: 'monthly', priority: 0.8 },
   },
   business: {
@@ -40,8 +41,7 @@ export const pages = {
     path: '/geschaeftsbereiche',
     title: 'Geschäftsbereiche',
     breadcrumb: 'Geschäftsbereiche',
-    description:
-      'Vermögensverwaltung, Unternehmensbeteiligungen, Bildungsinvestitionen, strategische Unternehmensentwicklung sowie digitale Bildung und Innovation im Überblick.',
+    description: `Verwaltung von Gesellschaftsvermögen und Unternehmensbeteiligungen mit Schwerpunkt im Bildungsbereich – die Tätigkeitsfelder der ${company}.`,
     sitemap: { changefreq: 'monthly', priority: 0.9 },
   },
   investments: {
@@ -49,15 +49,15 @@ export const pages = {
     path: '/beteiligungen',
     title: 'Beteiligungen',
     breadcrumb: 'Beteiligungen',
-    description: `Investitionsphilosophie, Kriterien und Ablauf: So beteiligt sich die ${brand} langfristig an Unternehmen und Bildungsanbietern.`,
-    sitemap: { changefreq: 'monthly', priority: 0.9 },
+    description: `Die ${company} verwaltet Beteiligungen an anderen Unternehmen – vorrangig im Bildungsbereich.`,
+    sitemap: { changefreq: 'monthly', priority: 0.8 },
   },
   contact: {
     key: 'contact',
     path: '/kontakt',
     title: 'Kontakt',
     breadcrumb: 'Kontakt',
-    description: `Nehmen Sie vertraulich Kontakt mit der ${brand} auf – zu Beteiligungen, Unternehmensnachfolge, Bildungsinitiativen und Kooperationen.`,
+    description: `Kontakt zur ${company}, ${siteConfig.address.street}, ${siteConfig.address.postalCode} ${city}.`,
     sitemap: { changefreq: 'yearly', priority: 0.7 },
   },
   imprint: {
@@ -65,7 +65,7 @@ export const pages = {
     path: '/impressum',
     title: 'Impressum',
     breadcrumb: 'Impressum',
-    description: `Impressum und Anbieterkennzeichnung der ${brand} gemäß § 5 DDG.`,
+    description: `Impressum der ${company} gemäß § 5 DDG.`,
     sitemap: { changefreq: 'yearly', priority: 0.3 },
   },
   privacy: {
@@ -73,7 +73,7 @@ export const pages = {
     path: '/datenschutz',
     title: 'Datenschutzerklärung',
     breadcrumb: 'Datenschutz',
-    description: `Datenschutzerklärung der ${brand}: Informationen zur Verarbeitung personenbezogener Daten gemäß DSGVO.`,
+    description: `Datenschutzerklärung der ${company}: Informationen zur Verarbeitung personenbezogener Daten gemäß DSGVO.`,
     sitemap: { changefreq: 'yearly', priority: 0.3 },
   },
   notFound: {

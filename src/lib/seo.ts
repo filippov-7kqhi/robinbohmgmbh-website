@@ -30,7 +30,7 @@ export function buildTitle(meta: PageMeta): string {
 }
 
 function organizationSchema(): Record<string, unknown> {
-  const { brand, address, contact, sample } = siteConfig;
+  const { brand, address, contact, legal } = siteConfig;
   const schema: Record<string, unknown> = {
     '@context': 'https://schema.org',
     '@type': 'Organization',
@@ -40,18 +40,17 @@ function organizationSchema(): Record<string, unknown> {
     logo: absoluteUrl('/logo.svg'),
     description: brand.description,
   };
-  // Adress- und Kontaktdaten werden nur ausgegeben, wenn keine Musterinhalte aktiv sind.
-  if (!sample.enabled) {
-    schema.address = {
-      '@type': 'PostalAddress',
-      streetAddress: address.street,
-      postalCode: address.postalCode,
-      addressLocality: address.city,
-      addressCountry: 'DE',
-    };
-    schema.email = contact.email;
-    schema.telephone = contact.phoneHref;
-  }
+  schema.address = {
+    '@type': 'PostalAddress',
+    streetAddress: address.street,
+    postalCode: address.postalCode,
+    addressLocality: address.city,
+    addressCountry: 'DE',
+  };
+  schema.legalName = brand.legalName;
+  schema.identifier = `${legal.registerCourt}, ${legal.registerNumber}`;
+  if (contact.email) schema.email = contact.email;
+  if (contact.phoneHref) schema.telephone = contact.phoneHref;
   if (siteConfig.social.length > 0) {
     schema.sameAs = siteConfig.social.map((item) => item.href);
   }
