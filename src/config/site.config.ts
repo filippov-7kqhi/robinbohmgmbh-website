@@ -133,7 +133,8 @@ export const siteConfig: SiteConfig = {
   },
 
   release: {
-    contentApproved: false,
+    // Freigabe durch die Robin Böhm GmbH laut Auftraggeber am 11.11.2026
+    contentApproved: true,
   },
 
   siteUrl: PREVIEW_URL || PRODUCTION_URL,
@@ -142,9 +143,9 @@ export const siteConfig: SiteConfig = {
   locale: 'de_DE',
 
   contact: {
-    email: '',
-    phone: '',
-    phoneHref: '',
+    email: 'support@robinbohmgmbh.shop',
+    phone: '+49 2331 923466',
+    phoneHref: '+492331923466',
   },
 
   address: {

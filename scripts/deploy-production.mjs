@@ -85,7 +85,14 @@ await fs.cp(dist, tmp, { recursive: true });
 const git = (args) => execFileSync('git', args, { cwd: tmp, stdio: 'inherit', env: { ...process.env, GH_TOKEN: token } });
 git(['init', '-q', '-b', 'main']);
 git(['add', '-A']);
-git(['commit', '-q', '-m', `Veröffentlichung ${new Date().toISOString().slice(0, 10)}`]);
+git([
+  'commit',
+  '-q',
+  '-m',
+  `Veröffentlichung ${new Date().toISOString().slice(0, 10)}
+
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>`,
+]);
 git([
   '-c',
   'credential.helper=',
